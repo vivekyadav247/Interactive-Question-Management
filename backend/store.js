@@ -2,8 +2,8 @@ const fs = require("fs");
 const path = require("path");
 const { v4: uuidv4 } = require("uuid");
 
-// single source of truth: root-level sheet.json (one directory up from backend/)
-const DATA_PATH = path.join(__dirname, "..", "sheet.json");
+// single source of truth: sheet.json located inside backend/ (shipped with deploy)
+const DATA_PATH = path.join(__dirname, "sheet.json");
 const SOURCE_PATH = DATA_PATH;
 
 const uid = () => uuidv4();
