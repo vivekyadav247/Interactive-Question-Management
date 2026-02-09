@@ -48,6 +48,7 @@ function App() {
     reorderSubTopics,
     reorderQuestions,
     loadSheet,
+    resetToSeed,
   } = useSheetStore();
 
   const [editor, setEditor] = useState(null);
@@ -262,6 +263,7 @@ function App() {
           onSearch={(q) => setFilters({ query: q })}
           onDifficultyChange={(d) => setFilters({ difficulty: d })}
           onAddTopic={() => openTopicEditor(null)}
+          onReset={resetToSeed}
         />
 
         {loading ? (

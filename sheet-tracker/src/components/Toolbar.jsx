@@ -1,6 +1,6 @@
-import { Plus, Search } from 'lucide-react'
+import { Plus, RotateCcw, Search } from 'lucide-react'
 
-function Toolbar({ filters, onSearch, onDifficultyChange, onAddTopic }) {
+function Toolbar({ filters, onSearch, onDifficultyChange, onAddTopic, onReset }) {
   const options = ['all', 'easy', 'medium', 'hard']
   return (
     <div className="flex flex-col lg:flex-row gap-3 items-start lg:items-center justify-between">
@@ -33,12 +33,20 @@ function Toolbar({ filters, onSearch, onDifficultyChange, onAddTopic }) {
           })}
         </div>
       </div>
-      <button
-        onClick={onAddTopic}
-        className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-gradient-to-r from-amber-500 to-amber-400 text-black font-semibold shadow-soft hover:brightness-105 transition"
-      >
-        <Plus size={18} /> Add Topic
-      </button>
+      <div className="flex items-center gap-2 w-full lg:w-auto">
+        <button
+          onClick={onReset}
+          className="inline-flex items-center gap-2 px-3 py-2.5 rounded-lg border border-border bg-surface text-sm text-muted hover:border-accent/60 hover:text-white transition w-full lg:w-auto justify-center"
+        >
+          <RotateCcw size={16} /> Reset to seed
+        </button>
+        <button
+          onClick={onAddTopic}
+          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-gradient-to-r from-amber-500 to-amber-400 text-black font-semibold shadow-soft hover:brightness-105 transition w-full lg:w-auto justify-center"
+        >
+          <Plus size={18} /> Add Topic
+        </button>
+      </div>
     </div>
   )
 }
