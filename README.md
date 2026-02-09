@@ -1,13 +1,16 @@
-# Codolio Sheet Tracker
+# Codolio Interactive Question Management Sheet
 
-Single-page web app to manage topics → sub-topics → questions with CRUD, drag-and-drop ordering, filters, and progress. Uses one canonical dataset (`sheet.json` in the repo root) for both backend and frontend.
+Built for the Codolio internship assignment. Manage topics → sub-topics → questions with full CRUD, drag-and-drop reorder, filters, and solved progress. Data lives in a single `sheet.json`.
+
+- Live frontend: https://interactive-question-management-one.vercel.app/
+- Backend API: Express on port 3000, CORS-allowed for the live frontend.
+- Data file: `backend/sheet.json` (source of truth shipped with backend).
 
 ## Structure
-- `sheet-tracker/` — React + Tailwind (JS, Vite), Zustand state, dnd-kit drag/drop.
-- `backend/` — Express API on **port 3000**; reads/writes the root `sheet.json`.
-- `sheet.json` — Single source of truth (seed + live data).
+- `sheet-tracker/` — React frontend (Vite, Tailwind, Zustand, dnd-kit). Deployed to Vercel.
+- `backend/` — Express API (port 3000) reading/writing `backend/sheet.json`.
 
-## Setup
+## Local Setup
 1) Backend  
    ```bash
    cd backend
@@ -19,26 +22,21 @@ Single-page web app to manage topics → sub-topics → questions with CRUD, dra
    ```bash
    cd sheet-tracker
    npm install
-   npm run dev  # Vite dev server; proxies /api to http://localhost:3000
+   npm run dev  # proxies /api to http://localhost:3000 in dev
    ```
-   If you host backend elsewhere, set `VITE_API_URL` in `sheet-tracker/.env`.
+   For production builds, set `VITE_API_URL` to your deployed backend URL before `npm run build`.
 
 ## Features
-- Add/edit/delete Topics, Sub-topics, Questions.
-- Drag-and-drop reorder at all levels.
-- Toggle solved; progress cards with counts and % (overall, easy/medium/hard).
-- Search and difficulty filters; collapsible groups.
-- Friendly link labels (GFG, LeetCode, Code360, YouTube, GitHub).
-- Dark Codolio-inspired UI.
+- Add/edit/delete topics, sub-topics, questions
+- Drag-and-drop reorder (topics, sub-topics, questions)
+- Search + difficulty filters; collapsible groups
+- Solved progress with per-difficulty counts and percentages
+- Friendly link labels (GFG, LeetCode, Code360, YouTube, GitHub)
 
-## API
+## API (summary)
 - `GET /api/sheet`
 - Topics: `POST /api/topics`, `PUT /api/topics/:id`, `DELETE /api/topics/:id`
 - Sub-topics: `POST /api/topics/:topicId/subtopics`, `PUT /api/topics/:topicId/subtopics/:subId`, `DELETE /api/topics/:topicId/subtopics/:subId`
 - Questions: `POST /api/topics/:topicId/subtopics/:subId/questions`, `PUT /api/topics/:topicId/subtopics/:subId/questions/:qid`, `DELETE /api/topics/:topicId/subtopics/:subId/questions/:qid`
 - Toggle solved: `PATCH /api/topics/:topicId/subtopics/:subId/questions/:qid/toggle`
 - Reorder: `POST /api/reorder/topics`, `/api/reorder/subtopics`, `/api/reorder/questions`
-
-## Notes
-- Data persistence is file-based: backend writes directly to root `sheet.json`.
-- Build frontend with `npm run build` (inside `sheet-tracker`) for production assets.***
